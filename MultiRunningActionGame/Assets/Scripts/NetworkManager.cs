@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
 	string networkState;
+	public Text statusText;
+	public Text userCountText;
 
 	void Start() => PhotonNetwork.ConnectUsingSettings();
 
@@ -21,11 +24,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
 	void Update()
 	{
-		string curNetworkState = PhotonNetwork.NetworkClientState.ToString();
-		if (networkState != curNetworkState) 
-		{
-			networkState = curNetworkState;
-			print(networkState);
-		}
+		statusText.text = PhotonNetwork.NetworkClientState.ToString();
+		
+		userCountText.text = PhotonNetwork.CountOfPlayers.ToString() + '/' + PhotonNetwork.CountOfPlayersOnMaster.ToString();
 	}
 }
