@@ -16,6 +16,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 	public override void OnJoinedLobby() => 
 		PhotonNetwork.JoinOrCreateRoom("room", new RoomOptions { MaxPlayers = 4 }, null);
 
+	public override void OnJoinedRoom() =>
+		PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
+
 	void Update()
 	{
 		string curNetworkState = PhotonNetwork.NetworkClientState.ToString();
