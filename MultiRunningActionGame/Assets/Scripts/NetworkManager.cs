@@ -9,23 +9,27 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 {
 	string networkState;
 	public Text statusText;
-	public Text userCountText;
+	public Text roomNameText;
+
+	void Update() => statusText.text = PhotonNetwork.NetworkClientState.ToString(); // 연결상태 업데이트
 
 	void Start() => PhotonNetwork.ConnectUsingSettings();
 
-	public override void OnConnectedToMaster() => 
-		PhotonNetwork.JoinLobby();
+	public void joinLobby() => PhotonNetwork.JoinLobby();
 
-	public override void OnJoinedLobby() => 
-		PhotonNetwork.JoinOrCreateRoom("room", new RoomOptions { MaxPlayers = 4 }, null);
+	public void CreateRoom() => PhotonNetwork.CreateRoom(roomNameText.text);
+
+	public void joinRoom() => PhotonNetwork.JoinRoom(roomNameText.text);
+
+	public override void OnConnectedToMaster() 
+	{
+		Debug.Log("마스터서버접속 완료");
+	}
+
+	public override void OnCreatedRoom() => 
+		Debug.Log("방생성 완료");
 
 	public override void OnJoinedRoom() =>
-		PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
-
-	void Update()
-	{
-		statusText.text = PhotonNetwork.NetworkClientState.ToString();
+		Debug.Log("방접속 완료");
 		
-		userCountText.text = PhotonNetwork.CountOfPlayers.ToString() + '/' + PhotonNetwork.CountOfPlayersOnMaster.ToString();
-	}
 }
