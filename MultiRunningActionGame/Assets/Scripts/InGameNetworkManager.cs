@@ -5,10 +5,15 @@ using UnityEngine;
 
 public class InGameNetworkManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public Transform spawnPoint;
     void Awake()
     {
-        PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
+        PhotonNetwork.Instantiate("Player", spawnPoint.position, Quaternion.identity);
+    }
+
+    public void PlayerSpawn()
+    {
+        PhotonNetwork.Instantiate("Player", spawnPoint.position, Quaternion.identity);
     }
 
     // Update is called once per frame
