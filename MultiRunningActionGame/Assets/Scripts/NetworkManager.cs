@@ -12,14 +12,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 	public Text statusText;
 	public InputField nickNameInput;
 
-	void Awake() => Screen.SetResolution(960,540, false);
+	void Awake() => Screen.SetResolution(960,540, false); // 창크기 설정
 
 	void Start()
 		{
-			PhotonNetwork.ConnectUsingSettings();
+			PhotonNetwork.ConnectUsingSettings(); // 마스터서버에 접속
 		}
 
-	void Update() => statusText.text = PhotonNetwork.NetworkClientState.ToString(); // 연결상태 업데이트
 
 	
 	
@@ -31,23 +30,24 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
 
 
-	public override void OnConnectedToMaster() 
-	{
-		Debug.Log("마스터서버접속 완료");
-	}
+	public override void OnConnectedToMaster() => Debug.Log("마스터서버접속 완료");
 
-	public override void OnCreatedRoom() => 
-		Debug.Log("방생성 완료");
+	public override void OnCreatedRoom() => Debug.Log("방생성 완료");
 
-	public override void OnJoinedRoom()
+	public override void OnJoinedRoom() // 방에 접속하면 닉네임설정
 	{
 		Debug.Log("방접속 완료");
 		PhotonNetwork.LocalPlayer.NickName = nickNameInput.text;
 		Debug.Log(PhotonNetwork.LocalPlayer.NickName);
 
+
+		PhotonNetwork.LoadLevel("Main"); // Main씬을 로드
 	}
 
-	 [ContextMenu("정보")]
+
+
+
+	[ContextMenu("정보")]
     void Info()
     {
         if (PhotonNetwork.InRoom)

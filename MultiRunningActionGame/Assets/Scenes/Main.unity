@@ -124,6 +124,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &54487255 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6494600506568480336, guid: 093f09ed420135b46bf212699f2cd4f5,
+    type: 3}
+  m_PrefabInstance: {fileID: 6494600506903825318}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -430,6 +436,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b426d5f6d12ef7f478878da1de571960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxPlayers: 0
+  statusText: {fileID: 0}
+  nickNameInput: {fileID: 0}
 --- !u!4 &1028679041
 Transform:
   m_ObjectHideFlags: 0
@@ -535,6 +544,45 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6494600506903825318}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1946492409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 54487255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
+--- !u!114 &1946492410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 54487255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 0
+  ObservedComponents:
+  - {fileID: 1946492409}
+  sceneViewId: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &6494600506903825318
 PrefabInstance:
   m_ObjectHideFlags: 0
