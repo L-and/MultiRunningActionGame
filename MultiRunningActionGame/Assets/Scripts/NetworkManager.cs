@@ -42,6 +42,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
 
 		PhotonNetwork.LoadLevel("Main"); // Main씬을 로드
+		PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
 	}
 
 
