@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
-public class CameraSetup : MonoBehaviour
+public class InGameNetworkManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-
-        
+        PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
     }
 
     // Update is called once per frame

@@ -20,7 +20,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 		}
 
 
-	
+	void Update()
+	{
+		statusText.text = PhotonNetwork.NetworkClientState.ToString();
+	}
 	
 
 	public void JoinRoom()
@@ -38,11 +41,16 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 	{
 		Debug.Log("방접속 완료");
 		PhotonNetwork.LocalPlayer.NickName = nickNameInput.text;
-		Debug.Log(PhotonNetwork.LocalPlayer.NickName);
+	}
 
+	public void GameStart() // 게임시작
+	{
+		if(PhotonNetwork.InRoom)
+		{		
+			Debug.Log("게임시작!");
+			PhotonNetwork.LoadLevel("Main"); // Main씬을 로드
 
-		PhotonNetwork.LoadLevel("Main"); // Main씬을 로드
-		PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
+		}
 	}
 
 
@@ -60,6 +68,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             string playerStr = "방에 있는 플레이어 목록 : ";
             for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++) playerStr += PhotonNetwork.PlayerList[i].NickName + ", ";
             print(playerStr);
+
         }
         else
         {
