@@ -2,16 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Photon.Pun;
 using Photon.Realtime;
 
+// 멀티플레이 접속을 관리해주는 스크립트
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
-	string networkState;
 	public byte maxPlayers;
-	public Text statusText;
+
 	public InputField nickNameInput;
 	public PhotonView PV;
+
+	public GameObject player;
+    public Transform spawnPoint;
 
 
 	void Start()
@@ -23,9 +27,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
 	void Update()
 	{
-		statusText.text = PhotonNetwork.NetworkClientState.ToString();
+		
 	}
 
+	
 
 	public void JoinRoom()
 	{
@@ -46,26 +51,34 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
 	public void GameStart()
 	{
-		if (PV.IsMine)
+		if (PV.IsMine && PhotonNetwork.InRoom) // 방장이고 방에 입장해있다면
 		{
-			PV.RPC("GameStartRPC", RpcTarget.All); // RPC함수 호추
+			PV.RPC("StartRPC", RpcTarget.All); // RPC함수 호출
 
 		}
 
 	}
+	public void PlayerSpawn()
+	{
+		GameObject.Find("PlayerSpawner").SetActive(true);
+	}
+
 
 	[PunRPC]
-	void GameStartRPC() // 게임시작
+	void StartRPC() // 게임시작
 	{
-		if (PhotonNetwork.InRoom)
-		{
-			Debug.Log("게임시작!");
-			PhotonNetwork.LoadLevel("Main"); // Main씬을 로드
-
-
-		}
+		StartCoroutine("StartMainSceenCorutine");
 	}
 
+	IEnumerator StartMainSceenCorutine()
+	{
+		PhotonNetwork.IsMessageQueueRunning = false;
+		PhotonNetwork.LoadLevel("Main"); // Main씬을 로드
+
+		yield return 2;
+	}
+
+	
 
 
 

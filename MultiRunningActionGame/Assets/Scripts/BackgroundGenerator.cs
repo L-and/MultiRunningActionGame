@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// 배경을 자동으로 생성해주는 스크립트(사용안할예정)
 public class BackgroundGenerator : MonoBehaviour
 {
     public GameObject player; // 플레이어 오브젝트

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
+// 플레이어의 이동을 담당하는 스크립트
 public class PlayerMove : MonoBehaviour
 {
 
@@ -15,6 +16,7 @@ public class PlayerMove : MonoBehaviour
     float minSpeed; // 최저속도
 
     private bool isJump; //점프
+    private float horizontalInput;
 
     private Rigidbody2D rigid;
     
@@ -25,7 +27,7 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        if (!PV.IsMine && PhotonNetwork.IsConnected)
+        if (!PV.IsMine && PhotonNetwork.IsConnected) // 로컬 플레이어가아니면 실행X
             return;
 
         Jump();
@@ -36,6 +38,7 @@ public class PlayerMove : MonoBehaviour
     void GetInput() // 사용자입력받기
     {
         isJump = Input.GetButtonDown("Jump");
+        horizontalInput = Input.GetAxisRaw("Horizontal");
     }
 
     void Jump()
@@ -50,9 +53,15 @@ public class PlayerMove : MonoBehaviour
     {
         moveDistance += speed * Time.deltaTime;
     }
-
-    void FixedUpdate()
+    
+    [PunRPC]
+    void Move()
     {
         transform.position += new Vector3(speed * Time.smoothDeltaTime, 0, 0);
+    }
+    void FixedUpdate()
+    {
+        Move();
+        // transform.position += new Vector3(horizontalInput * speed * Time.smoothDeltaTime, 0, 0);
     }
 }
