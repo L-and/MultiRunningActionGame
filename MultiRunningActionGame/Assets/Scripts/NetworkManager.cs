@@ -11,20 +11,21 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 	public byte maxPlayers;
 	public Text statusText;
 	public InputField nickNameInput;
+	public PhotonView PV;
 
-	void Awake() => Screen.SetResolution(960,540, false); // 창크기 설정
 
 	void Start()
-		{
-			PhotonNetwork.ConnectUsingSettings(); // 마스터서버에 접속
-		}
+	{
+		PhotonNetwork.ConnectUsingSettings(); // 마스터서버에 접속
+		PV = photonView;
+	}
 
 
 	void Update()
 	{
 		statusText.text = PhotonNetwork.NetworkClientState.ToString();
 	}
-	
+
 
 	public void JoinRoom()
 	{
@@ -43,12 +44,24 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 		PhotonNetwork.LocalPlayer.NickName = nickNameInput.text;
 	}
 
-	public void GameStart() // 게임시작
+	public void GameStart()
 	{
-		if(PhotonNetwork.InRoom)
-		{		
+		if (PV.IsMine)
+		{
+			PV.RPC("GameStartRPC", RpcTarget.All); // RPC함수 호추
+
+		}
+
+	}
+
+	[PunRPC]
+	void GameStartRPC() // 게임시작
+	{
+		if (PhotonNetwork.InRoom)
+		{
 			Debug.Log("게임시작!");
 			PhotonNetwork.LoadLevel("Main"); // Main씬을 로드
+
 
 		}
 	}
@@ -57,26 +70,26 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
 
 	[ContextMenu("정보")]
-    void Info()
-    {
-        if (PhotonNetwork.InRoom)
-        {
-            print("현재 방 이름 : " + PhotonNetwork.CurrentRoom.Name);
-            print("현재 방 인원수 : " + PhotonNetwork.CurrentRoom.PlayerCount);
-            print("현재 방 최대인원수 : " + PhotonNetwork.CurrentRoom.MaxPlayers);
+	void Info()
+	{
+		if (PhotonNetwork.InRoom)
+		{
+			print("현재 방 이름 : " + PhotonNetwork.CurrentRoom.Name);
+			print("현재 방 인원수 : " + PhotonNetwork.CurrentRoom.PlayerCount);
+			print("현재 방 최대인원수 : " + PhotonNetwork.CurrentRoom.MaxPlayers);
 
-            string playerStr = "방에 있는 플레이어 목록 : ";
-            for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++) playerStr += PhotonNetwork.PlayerList[i].NickName + ", ";
-            print(playerStr);
+			string playerStr = "방에 있는 플레이어 목록 : ";
+			for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++) playerStr += PhotonNetwork.PlayerList[i].NickName + ", ";
+			print(playerStr);
 
-        }
-        else
-        {
-            print("접속한 인원 수 : " + PhotonNetwork.CountOfPlayers);
-            print("방 개수 : " + PhotonNetwork.CountOfRooms);
-            print("모든 방에 있는 인원 수 : " + PhotonNetwork.CountOfPlayersInRooms);
-            print("로비에 있는지? : " + PhotonNetwork.InLobby);
-            print("연결됐는지? : " + PhotonNetwork.IsConnected);
-        }
-    }
+		}
+		else
+		{
+			print("접속한 인원 수 : " + PhotonNetwork.CountOfPlayers);
+			print("방 개수 : " + PhotonNetwork.CountOfRooms);
+			print("모든 방에 있는 인원 수 : " + PhotonNetwork.CountOfPlayersInRooms);
+			print("로비에 있는지? : " + PhotonNetwork.InLobby);
+			print("연결됐는지? : " + PhotonNetwork.IsConnected);
+		}
+	}
 }

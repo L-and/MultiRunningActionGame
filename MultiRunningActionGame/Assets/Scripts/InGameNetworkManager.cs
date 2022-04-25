@@ -5,15 +5,18 @@ using UnityEngine;
 
 public class InGameNetworkManager : MonoBehaviour
 {
+    public GameObject player;
     public Transform spawnPoint;
+    
     void Awake()
     {
-        PhotonNetwork.Instantiate("Player", spawnPoint.position, Quaternion.identity);
+        player = PhotonNetwork.Instantiate("Player", spawnPoint.position, Quaternion.identity);
     }
 
-    public void PlayerSpawn()
+    private void Start()
     {
-        PhotonNetwork.Instantiate("Player", spawnPoint.position, Quaternion.identity);
+        GameObject.FindGameObjectWithTag("UI").GetComponent<InGameUI>().player = player; // 플레이어 객체 지정해줌
+
     }
 
     // Update is called once per frame

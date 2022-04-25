@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class PlayerMove : MonoBehaviour
 {
+
+    public PhotonView PV;
     public float speed; // 이동속도
     public float jumpPower; // 점프력
+
+    public float moveDistance; // 이동거리
     float maxSpeed; // 최대속도
     float minSpeed; // 최저속도
 
@@ -20,8 +25,11 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        Jump();
+        if (!PV.IsMine && PhotonNetwork.IsConnected)
+            return;
 
+        Jump();
+        UpdateDistance();
         GetInput();
     }
 
@@ -38,8 +46,13 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+    void UpdateDistance()
+    {
+        moveDistance += speed * Time.deltaTime;
+    }
+
     void FixedUpdate()
     {
-        transform.position += new Vector3(speed * Time.deltaTime, 0, 0);
+        transform.position += new Vector3(speed * Time.smoothDeltaTime, 0, 0);
     }
 }
