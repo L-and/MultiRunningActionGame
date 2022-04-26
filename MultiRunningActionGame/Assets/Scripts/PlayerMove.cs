@@ -54,14 +54,17 @@ public class PlayerMove : MonoBehaviour
         moveDistance += speed * Time.deltaTime;
     }
     
-    [PunRPC]
     void Move()
     {
-        transform.position += new Vector3(speed * Time.smoothDeltaTime, 0, 0);
+        transform.position += Vector3.right * speed * Time.deltaTime;
     }
     void FixedUpdate()
     {
+        if (!PV.IsMine && PhotonNetwork.IsConnected) // 로컬 플레이어가아니면 실행X
+            return;
+
         Move();
-        // transform.position += new Vector3(horizontalInput * speed * Time.smoothDeltaTime, 0, 0);
+        // if(horizontalInput != 0.0f)
+            // transform.position += Vector3.right * horizontalInput * speed * Time.deltaTime;
     }
 }

@@ -14,10 +14,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 	public InputField nickNameInput;
 	public PhotonView PV;
 
-	public GameObject player;
-    public Transform spawnPoint;
-
-
 	void Start()
 	{
 		PhotonNetwork.ConnectUsingSettings(); // 마스터서버에 접속
@@ -27,7 +23,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
 	void Update()
 	{
-		
+		StartGameSceen();
 	}
 
 	
@@ -36,8 +32,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 	{
 		PhotonNetwork.JoinOrCreateRoom("Room", new RoomOptions { MaxPlayers = maxPlayers }, null); // 방생성
 	}
-
-
 
 	public override void OnConnectedToMaster() => Debug.Log("마스터서버접속 완료");
 
@@ -63,23 +57,18 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 		GameObject.Find("PlayerSpawner").SetActive(true);
 	}
 
+	public void StartGameSceen()
+	{
+		if(SceneManager.GetActiveScene().name == "Main")
+			gameObject.GetComponent<CountSync>().enabled = true;
+	}
 
 	[PunRPC]
 	void StartRPC() // 게임시작
 	{
-		StartCoroutine("StartMainSceenCorutine");
-	}
-
-	IEnumerator StartMainSceenCorutine()
-	{
 		PhotonNetwork.IsMessageQueueRunning = false;
 		PhotonNetwork.LoadLevel("Main"); // Main씬을 로드
-
-		yield return 2;
 	}
-
-	
-
 
 
 	[ContextMenu("정보")]

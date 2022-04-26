@@ -8,11 +8,12 @@ public class PlayerSpawner : MonoBehaviour
 {
     public Transform spawnPoint;
 
+    private GameObject player;
     
     private void Start() 
     {
         Debug.Log("플레이어 생성!");
-		PhotonNetwork.Instantiate("Player", spawnPoint.position, Quaternion.identity);
-
+		player = PhotonNetwork.Instantiate("Player", spawnPoint.position, Quaternion.identity);
+        player.name = "Player " + player.GetComponent<PhotonView>().Owner.NickName;
     }
 }
