@@ -60,7 +60,7 @@ public class PlayerMove : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if (!PV.IsMine && PhotonNetwork.IsConnected) // 로컬 플레이어가아니면 실행X
+        if (!PV.IsMine) // 로컬 플레이어가아니면 실행X
             return;
 
         Move();

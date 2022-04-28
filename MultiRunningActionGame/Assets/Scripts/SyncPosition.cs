@@ -1,50 +1,53 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun ;
+using Photon.Pun;
 using Photon.Realtime;
-
-// 멀티플레이시 움직임이 튀는걸 막아주는 스크립트(제작중)
-public class SyncPosition : MonoBehaviourPunCallbacks, IPunObservable 
-{
-    public float SmoothingDelay = 5;
+ 
+public class SyncPosition : MonoBehaviourPunCallbacks, IPunObservable {
+ 
+    public float speed = 10.0f;
     private Transform tr;
-    public PhotonView PV;
-    public Vector3 networkPosition;
-    public float movementSpeed;
-    private Vector2 movement;
-
-    void Start() 
+ 
+    void Start()
     {
         tr = GetComponent<Transform>();
     }
-
+ 
+    void Update () {
+        //controlled locally일 경우 이동(자기 자신의 캐릭터일 때)
+        if (!photonView.IsMine)
+        {
+            //끊어진 시간이 너무 길 경우(텔레포트)
+            // if ((tr.position - currPos).sqrMagnitude >= 10.0f * 10.0f)
+            // {
+            //     tr.position = currPos;
+            //     tr.rotation = currRot;
+            // }
+            //끊어진 시간이 짧을 경우(자연스럽게 연결 - 데드레커닝)
+            // else
+            // {
+                tr.position = currPos;
+            // }
+        }
+ 
+    }
+ 
+    //클론이 통신을 받는 변수 설정
+    private Vector3 currPos;
+ 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        // 클론이 정보를 보냄
+        //통신을 보내는 
         if (stream.IsWriting)
         {
-            if(PV.IsMine)
-                stream.SendNext(tr.position);
-                Debug.Log("정보보냄");
-        }// 클론이 정보를 받음
-        else if(stream.IsReading)
-        {
-            if(PV.IsMine)
-                networkPosition = (Vector3)stream.ReceiveNext();
-                Debug.Log(networkPosition);
+            stream.SendNext(tr.position);
         }
-    }
-
-
-
-    // Update is called once per frame
-    void Update()
-    {   
-        if (!PV.IsMine) // 플레이중인 객체가 아니라면 이동보정을 해줘서 떨리는걸 막아줌
+ 
+        //클론이 통신을 받는 
+        else
         {
-            // transform.position = Vector3.Lerp(transform.position, networkPosition, Time.deltaTime * this.SmoothingDelay);
-            // Debug.Log(this.transform.position);
+            currPos = (Vector3)stream.ReceiveNext();
         }
     }
 }

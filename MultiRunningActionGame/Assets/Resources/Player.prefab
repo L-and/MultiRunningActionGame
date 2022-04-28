@@ -158,7 +158,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 0
   ObservedComponents:
-  - {fileID: 5334023648379499236}
+  - {fileID: 8160603603697472776}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -198,15 +198,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2332281117027838776}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2cb67808927d4fe99af714fe2802f3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SmoothingDelay: 60
-  PV: {fileID: 5056276215190866098}
-  networkPosition: {x: 0, y: 0, z: 0}
-  movementSpeed: 0
+  speed: 10
 --- !u!114 &5334023648379499236
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -24,9 +24,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 	void Update()
 	{
 		StartGameSceen();
+		// LoggingPing();
 	}
 
-	
+	void LoggingPing()
+	{
+		Debug.Log(PhotonNetwork.GetPing());
+		
+	}
 
 	public void JoinRoom()
 	{
