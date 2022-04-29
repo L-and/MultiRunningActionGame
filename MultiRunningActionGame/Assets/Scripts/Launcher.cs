@@ -27,10 +27,12 @@ public class Launcher : MonoBehaviourPunCallbacks
     public GameObject startButtonObj; // 룸 시작버튼
 
 
+
     /// 플레이어관련 변수들 ///
     public GameObject playerPrefab; // 플레이어 프리팹
     public Transform playerSpawnTransform;
-    
+    GameObject player;
+
 
     int readyCount; // 레디한 유저의 수
 
@@ -115,9 +117,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         {
             print("게임시작!");
             panelObj.SetActive(false); // UI패널 비활성화
-
-            if (PhotonNetwork.IsMasterClient) // 마스터클라이언트라면 시작버튼 비활성화
-                startButtonObj.SetActive(false);
+            lobbyUIObj.SetActive(false); // 로비UI 비활성화
         }
         else
         {
@@ -126,6 +126,8 @@ public class Launcher : MonoBehaviourPunCallbacks
 
         UICameraObj.SetActive(false); // UI카메라 비활성화
 
-        PhotonNetwork.Instantiate(playerPrefab.name, playerSpawnTransform.position, Quaternion.identity); // 플레이어 프리팹 생성
+        player = PhotonNetwork.Instantiate(playerPrefab.name, playerSpawnTransform.position, Quaternion.identity); // 플레이어인스턴스 생성
+
+        player.name = "Player["+PhotonNetwork.LocalPlayer.NickName+"]"; // 플레이어이름설정
     }
 }
