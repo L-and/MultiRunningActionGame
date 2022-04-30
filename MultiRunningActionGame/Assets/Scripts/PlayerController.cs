@@ -31,14 +31,24 @@ public class PlayerController : MonoBehaviour, IPunObservable
 
     void Update()
     {
-        if (!PV.IsMine && PhotonNetwork.IsConnected) // 로컬 플레이어가아니면 실행X
-            return;
+        if (PV.IsMine) // 현재 클라이언트 플레이어라면 실행
+        {
 
-        PV.RPC("JumpRPC", RpcTarget.All);
-        UpdateDistance();
-        GetInput();
+            PV.RPC("JumpRPC", RpcTarget.All);
+            UpdateDistance();
+            GetInput();
+            Move();
+            //if (horizontalInput != 0.0f)
+            //    transform.position += Vector3.right * horizontalInput * speed * Time.deltaTime;
 
-        
+            PositionSync();
+        }
+        else if ((transform.position - curPos).sqrMagnitude >= 100) // 전송받은 위치가 너무 멀다면 텔레포트
+            transform.position = curPos;
+        else
+            transform.position = Vector3.Lerp(transform.position, curPos, Time.deltaTime * 10);
+
+
     }
 
     void GetInput() // 사용자입력받기
@@ -64,27 +74,20 @@ public class PlayerController : MonoBehaviour, IPunObservable
 
     void PositionSync()
     {
-        if(!PV.IsMine)
-        {
-
-        }
+        if (PV.IsMine)
+        { }
+        else if ((transform.position - curPos).sqrMagnitude >= 100) // 전송받은 위치가 너무 멀다면 텔레포트
+            transform.position = curPos;
+        else
+            transform.position = Vector3.Lerp(transform.position, curPos, Time.deltaTime * 10);
     }
 
     void Move()
     {
-        transform.position += Vector3.right * speed * Time.deltaTime;
+            transform.position += Vector3.right * speed * Time.deltaTime;
     }
-    void FixedUpdate()
-    {
-        if (!PV.IsMine) // 로컬 플레이어가아니면 실행X
-            return;
-
-        //Move();
-        if (horizontalInput != 0.0f)
-            transform.position += Vector3.right * horizontalInput * speed * Time.deltaTime;
-    }
-
-    void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     { 
         if(stream.IsWriting)
         {

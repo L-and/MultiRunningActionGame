@@ -120,18 +120,21 @@ public class Launcher : MonoBehaviourPunCallbacks
             print("게임시작!");
             panelObj.SetActive(false); // UI패널 비활성화
             lobbyUIObj.SetActive(false); // 로비UI 비활성화
+            UICameraObj.SetActive(false); // UI카메라 비활성화
+
+            player = PhotonNetwork.Instantiate(playerPrefab.name, playerSpawnTransform.position, Quaternion.identity); // 플레이어인스턴스 생성
+
+            player.name = "Player[" + PhotonNetwork.LocalPlayer.NickName + "]"; // 플레이어이름설정
+
+            gameStartCounter.SetActive(true); // 게임스타터 활성화
+
+            print("[게임시작!]");
+
+
         }
         else
         {
-            print("현재 레디한인원:" + currentReadyCount);
+            print("[준비미완료]현재 레디한인원:" + currentReadyCount);
         }
-
-        UICameraObj.SetActive(false); // UI카메라 비활성화
-
-        player = PhotonNetwork.Instantiate(playerPrefab.name, playerSpawnTransform.position, Quaternion.identity); // 플레이어인스턴스 생성
-
-        player.name = "Player["+PhotonNetwork.LocalPlayer.NickName+"]"; // 플레이어이름설정
-
-        gameStartCounter.SetActive(true);
     }
 }
