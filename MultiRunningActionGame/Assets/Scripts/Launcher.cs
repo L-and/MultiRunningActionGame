@@ -33,6 +33,8 @@ public class Launcher : MonoBehaviourPunCallbacks
     public Transform playerSpawnTransform;
     GameObject player;
 
+    /// 매니저오브젝트들 ///
+    public GameObject gameStartCounter;
 
     int readyCount; // 레디한 유저의 수
 
@@ -112,7 +114,7 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         int currentReadyCount = (int)PhotonNetwork.CurrentRoom.CustomProperties["readyCount"] + 1;
         bool startReady = (PhotonNetwork.CurrentRoom.Players.Count == currentReadyCount);
-        if (true)
+        if (startReady)
         // 방장을 제외한 모두가 준비됐다면
         {
             print("게임시작!");
@@ -129,5 +131,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         player = PhotonNetwork.Instantiate(playerPrefab.name, playerSpawnTransform.position, Quaternion.identity); // 플레이어인스턴스 생성
 
         player.name = "Player["+PhotonNetwork.LocalPlayer.NickName+"]"; // 플레이어이름설정
+
+        gameStartCounter.SetActive(true);
     }
 }
