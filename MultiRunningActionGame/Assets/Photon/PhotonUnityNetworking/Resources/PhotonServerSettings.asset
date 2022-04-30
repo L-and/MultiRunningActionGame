@@ -18,17 +18,17 @@ MonoBehaviour:
     AppIdChat: 
     AppIdVoice: 
     AppVersion: 
-    UseNameServer: 0
-    FixedRegion: 
-    Server: 13.125.140.65
-    Port: 5055
+    UseNameServer: 1
+    FixedRegion: kr
+    Server: 
+    Port: 0
     ProxyServer: 
     Protocol: 0
     EnableProtocolFallback: 1
     AuthMode: 0
     EnableLobbyStatistics: 0
     NetworkLogging: 0
-  DevRegion: 
+  DevRegion: kr
   PunLogging: 1
   EnableSupportLogger: 0
   RunInBackground: 1
@@ -38,9 +38,10 @@ MonoBehaviour:
   - DestroyRpc
   - DestroySpaceship
   - Fire
-  - RespawnSpaceship
   - GameStartRPC
   - JumpRPC
+  - RespawnSpaceship
+  - OnPlayerControllerRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
-  DevRegionSetOnce: 0
+  DevRegionSetOnce: 1

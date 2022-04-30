@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour, IPunObservable
             GetInput();
             Move();
             //if (horizontalInput != 0.0f)
-            //    transform.position += Vector3.right * horizontalInput * speed * Time.deltaTime;
+            //transform.position += Vector3.right * horizontalInput * speed * Time.deltaTime;
 
             PositionSync();
         }

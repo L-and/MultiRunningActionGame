@@ -6,6 +6,8 @@ using Photon.Pun;
 // 씬이 변경된후 경과한시간을 측정해서 시작카운트를 함
 public class GameStartCounter : MonoBehaviour
 {
+    public PhotonView PV;
+
     public GameObject countText; // 카운트를 출력하는 UI
     public float offsetSecond; // 카운트가 출력되기까지 여유시간
 
@@ -38,7 +40,7 @@ public class GameStartCounter : MonoBehaviour
             Debug.Log("Count:Start!");
             countText.GetComponent<Text>().text = "Start!";
 
-            OnPlayerController();
+            PV.RPC("OnPlayerControllerRPC", RpcTarget.All);
             // 모든 Player 태그가붙은 객체의 PlayerController컴포넌트를 활성화
         }
         else if (currentSecond >= 3.0f + offsetSecond)
@@ -57,8 +59,9 @@ public class GameStartCounter : MonoBehaviour
             countText.GetComponent<Text>().text = "3";
         }
     }
-
-    void OnPlayerController()
+    
+    [PunRPC]
+    public void OnPlayerControllerRPC()
     {
         players = GameObject.FindGameObjectsWithTag("Player");
 
