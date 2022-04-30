@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour, IPunObservable
 {
 
     public PhotonView PV;
-    
+
     public float jumpPower; // 점프력
     public bool isJump; // 현재 점프중인가?
     
@@ -21,11 +21,13 @@ public class PlayerController : MonoBehaviour, IPunObservable
     private float horizontalInput;
 
     private Rigidbody2D rigid;
+    private Transform tr;
 
     Vector3 curPos; // 직접 통신을 해서 위치를 받을 벡터
 
     void Start()
     {
+        tr = GetComponent<Transform>();
         rigid = GetComponent<Rigidbody2D>();
     }
 
@@ -44,9 +46,9 @@ public class PlayerController : MonoBehaviour, IPunObservable
             PositionSync();
         }
         else if ((transform.position - curPos).sqrMagnitude >= 100) // 전송받은 위치가 너무 멀다면 텔레포트
-            transform.position = curPos;
+            tr.position = curPos;
         else
-            transform.position = Vector3.Lerp(transform.position, curPos, Time.deltaTime * 10);
+            tr.position = Vector3.Lerp(tr.position, curPos, Time.deltaTime * 10);
 
 
     }
@@ -86,13 +88,16 @@ public class PlayerController : MonoBehaviour, IPunObservable
     {
             transform.position += Vector3.right * speed * Time.deltaTime;
     }
-    
+
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    { 
-        if(stream.IsWriting)
+    {
+        //통신을 보내는 
+        if (stream.IsWriting)
         {
-            stream.SendNext(transform.position);
+            stream.SendNext(tr.position);
         }
+
+        //클론이 통신을 받는 
         else
         {
             curPos = (Vector3)stream.ReceiveNext();
