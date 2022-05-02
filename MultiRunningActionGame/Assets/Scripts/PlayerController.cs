@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour, IPunObservable
             transform.position += Vector3.right * horizontalInput * speed * Time.deltaTime;
     }
 
-    void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     { 
         if(stream.IsWriting)
         {

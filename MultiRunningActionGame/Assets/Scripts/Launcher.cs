@@ -13,7 +13,8 @@ public class Launcher : MonoBehaviourPunCallbacks
     public byte maxPlayerCnt;
 
     /// 카메라관련 변수들 ///
-    public GameObject UICameraObj;
+    public GameObject mainCamera;
+    private CameraAttacher cameraAttacher;
 
     /// UI관련 변수들 ///
     public GameObject panelObj;
@@ -45,6 +46,9 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     void Start()
     {
+        // 객체지정
+        cameraAttacher = mainCamera.GetComponent<CameraAttacher>();
+
         Connect(); //서버에 접속
         readyCount = 0;
     }
@@ -126,11 +130,10 @@ public class Launcher : MonoBehaviourPunCallbacks
             print("현재 레디한인원:" + currentReadyCount);
         }
 
-        UICameraObj.SetActive(false); // UI카메라 비활성화
-
         player = PhotonNetwork.Instantiate(playerPrefab.name, playerSpawnTransform.position, Quaternion.identity); // 플레이어인스턴스 생성
-
         player.name = "Player["+PhotonNetwork.LocalPlayer.NickName+"]"; // 플레이어이름설정
+
+        cameraAttacher.enabled = true; // 카메라가 플레이어에게 붙도록 설정
 
         gameStartCounter.SetActive(true);
     }
