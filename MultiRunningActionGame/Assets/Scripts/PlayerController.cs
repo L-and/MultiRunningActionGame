@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 
 // 플레이어의 이동을 담당하는 스크립트
-public class PlayerController : MonoBehaviour, IPunObservable
+public class PlayerController : MonoBehaviour
 {
 
     public PhotonView PV;
@@ -36,19 +36,14 @@ public class PlayerController : MonoBehaviour, IPunObservable
         if (PV.IsMine) // 현재 클라이언트 플레이어라면 실행
         {
 
-            PV.RPC("JumpRPC", RpcTarget.All);
+            Jump();
             UpdateDistance();
             GetInput();
             Move();
             //if (horizontalInput != 0.0f)
             //transform.position += Vector3.right * horizontalInput * speed * Time.deltaTime;
 
-            PositionSync();
         }
-        else if ((transform.position - curPos).sqrMagnitude >= 100) // 전송받은 위치가 너무 멀다면 텔레포트
-            tr.position = curPos;
-        else
-            tr.position = Vector3.Lerp(tr.position, curPos, Time.deltaTime * 10);
 
 
     }
@@ -59,8 +54,7 @@ public class PlayerController : MonoBehaviour, IPunObservable
         horizontalInput = Input.GetAxisRaw("Horizontal");
     }
 
-    [PunRPC]
-    void JumpRPC()
+    void Jump()
     {
         if (isJumpInput && !isJump) // 점프키가 눌리고 점프중이 아닐때
         {
@@ -74,35 +68,8 @@ public class PlayerController : MonoBehaviour, IPunObservable
         moveDistance += speed * Time.deltaTime;
     }
 
-    void PositionSync()
-    {
-        if (PV.IsMine)
-        { }
-        else if ((transform.position - curPos).sqrMagnitude >= 100) // 전송받은 위치가 너무 멀다면 텔레포트
-            transform.position = curPos;
-        else
-            transform.position = Vector3.Lerp(transform.position, curPos, Time.deltaTime * 10);
-    }
-
     void Move()
     {
             transform.position += Vector3.right * speed * Time.deltaTime;
     }
-
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        //통신을 보내는 
-        if (stream.IsWriting)
-        {
-            stream.SendNext(tr.position);
-        }
-
-        //클론이 통신을 받는 
-        else
-        {
-            curPos = (Vector3)stream.ReceiveNext();
-        }
-    }
-
-
 }

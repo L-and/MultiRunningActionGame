@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1081013276088242589}
   - component: {fileID: -8329279430323025312}
   - component: {fileID: 3039959007397633499}
+  - component: {fileID: 8682449324806430342}
   m_Layer: 3
   m_Name: PlayerPrefab
   m_TagString: Player
@@ -57,7 +58,7 @@ MonoBehaviour:
   OwnershipTransfer: 1
   observableSearch: 0
   ObservedComponents:
-  - {fileID: -8329279430323025312}
+  - {fileID: 8682449324806430342}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -113,6 +114,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PV: {fileID: 7585849202067440539}
   playerCamera: {fileID: 3240782136802733893}
+--- !u!114 &8682449324806430342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3240782135553884272}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f95ac2ee98988bd4392b7626ef6421fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3240782136475021992
 GameObject:
   m_ObjectHideFlags: 0

@@ -68,6 +68,7 @@ public class GameStartCounter : MonoBehaviour
         for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
         {
             players[i].GetComponent<PlayerController>().enabled = true;
+            players[i].GetComponent<SyncPlayerPosition>().enabled = true;
         }
     }
 }
