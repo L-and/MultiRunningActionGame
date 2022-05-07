@@ -12,7 +12,7 @@ public class SyncPlayerPosition : MonoBehaviour, IPunObservable
     {
         PV = GetComponent<PhotonView>();
     }
-    private void Update()
+    private void FixedUpdate()
     {
         PositionSync();
     }

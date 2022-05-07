@@ -42,6 +42,9 @@ MonoBehaviour:
   - JumpRPC
   - RespawnSpaceship
   - OnPlayerControllerRPC
+  - <Update>g__genObstacleRPC|8_0
+  - genObstacleRPC
+  - genObjectRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

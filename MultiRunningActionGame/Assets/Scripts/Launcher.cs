@@ -34,7 +34,8 @@ public class Launcher : MonoBehaviourPunCallbacks
     GameObject player;
 
     /// 매니저오브젝트들 ///
-    public GameObject gameStartCounter;
+    public GameObject gameStartCounter; // 스타트 카운터
+    public GameObject obstacleGenerator; // 장애물 생성기
 
     int readyCount; // 레디한 유저의 수
 
@@ -127,6 +128,7 @@ public class Launcher : MonoBehaviourPunCallbacks
             player.name = "Player[" + PhotonNetwork.LocalPlayer.NickName + "]"; // 플레이어이름설정
 
             gameStartCounter.SetActive(true); // 게임스타터 활성화
+            obstacleGenerator.SetActive(true); // 장애물생성기 활성화
 
             print("[게임시작!]");
 

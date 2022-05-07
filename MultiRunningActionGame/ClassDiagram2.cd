@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="	&lt;&lt;GameObejct&gt;&gt;&#xD;&#xA;	        Player">
+    <Position X="5.042" Y="0.542" Height="0.573" Width="2.075" />
+  </Comment>
+  <Class Name="CameraActivator">
+    <Position X="3.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQACAAAEA=</HashCode>
+      <FileName>Assets\Scripts\CameraActivator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameStartCounter">
+    <Position X="14" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAIAAAAAAAAAAACAAAAAABAEAAAIAAQAAAAAFA=</HashCode>
+      <FileName>Assets\Scripts\GameStartCounter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GroundChecker">
+    <Position X="10.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\GroundChecker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerController">
+    <Position X="1.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQRAAAIAAqAEAAQAAAAAAAAAAABQAQAAAQBYAABAAAA=</HashCode>
+      <FileName>Assets\Scripts\PlayerController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Launcher">
+    <Position X="8" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQQAQAgACAiAAEAAEAAEJgAQAAAACBBECASAwAAYkA=</HashCode>
+      <FileName>Assets\Scripts\Launcher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SyncPlayerPosition">
+    <Position X="3.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAQAEAAAAAAAAAAAAQAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\SyncPlayerPosition.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>

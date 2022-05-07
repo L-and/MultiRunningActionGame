@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PV: {fileID: 7585849202067440539}
-  jumpPower: 5
+  jumpPower: 7
   isJump: 0
   speed: 5
   moveDistance: 0
