@@ -30,6 +30,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     /// 플레이어관련 변수들 ///
     public GameObject playerPrefab; // 플레이어 프리팹
+    public GameObject otherPlayerPrefab; // 다른플레이어 프리팹
     public Transform playerSpawnTransform;
     GameObject player;
 
@@ -123,7 +124,10 @@ public class Launcher : MonoBehaviourPunCallbacks
             lobbyUIObj.SetActive(false); // 로비UI 비활성화
             UICameraObj.SetActive(false); // UI카메라 비활성화
 
-            player = PhotonNetwork.Instantiate(playerPrefab.name, playerSpawnTransform.position, Quaternion.identity); // 플레이어인스턴스 생성
+        //    if(PV.IsMine) // 자신의 클라이언트라면
+                player = PhotonNetwork.Instantiate(playerPrefab.name, playerSpawnTransform.position, Quaternion.identity); // 플레이어인스턴스 생성(리지드포함)
+            //else
+            //    player = PhotonNetwork.Instantiate(otherPlayerPrefab.name, playerSpawnTransform.position, Quaternion.identity); // 다른플레이어인스턴스 생성(리지드미포함)
 
             player.name = "Player[" + PhotonNetwork.LocalPlayer.NickName + "]"; // 플레이어이름설정
 

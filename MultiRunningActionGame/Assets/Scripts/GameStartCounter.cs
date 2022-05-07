@@ -65,10 +65,13 @@ public class GameStartCounter : MonoBehaviour
     {
         players = GameObject.FindGameObjectsWithTag("Player");
 
+        for(int i=0; i<players.Length; i++)
+            print(players[i].name);
+
         for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
         {
-            players[i].GetComponent<PlayerController>().enabled = true;
-            players[i].GetComponent<SyncPlayerPosition>().enabled = true;
+            players[i].GetComponent<PlayerController>().enabled = true; // 플레이어컨트롤러 활성화
+            players[i].GetComponent<SyncPlayerPosition>().enabled = true; // 위치동기화 활성화
         }
     }
 }

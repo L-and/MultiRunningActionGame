@@ -11,6 +11,7 @@ public class SyncPlayerPosition : MonoBehaviour, IPunObservable
     private void Awake()
     {
         PV = GetComponent<PhotonView>();
+
     }
     private void FixedUpdate()
     {
@@ -20,7 +21,7 @@ public class SyncPlayerPosition : MonoBehaviour, IPunObservable
     void PositionSync()
     {
         if (PV.IsMine)
-        { }
+        {}
         else if ((transform.position - curPos).sqrMagnitude >= 100) // 전송받은 위치가 너무 멀다면 텔레포트
             transform.position = curPos;
         else
