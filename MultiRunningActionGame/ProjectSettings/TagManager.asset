@@ -7,20 +7,23 @@ TagManager:
   - InGameCamera
   - LobbyCamera
   - UI
+  - Map
+  - hitCollider
+  - avoidCollider
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Player
+  - 
   - Water
   - UI
   - 
   - Background
   - 
-  - 
-  - 
-  - 
-  - 
+  - Map
+  - Player
+  - PlayerSpeedChanged
+  - Obstacle
   - 
   - 
   - 
