@@ -7,6 +7,7 @@ using Photon.Pun;
 public class GameStartCounter : MonoBehaviour
 {
     public PhotonView PV;
+    PhotonView playerPV;
 
     public GameObject countText; // 카운트를 출력하는 UI
     public float offsetSecond; // 카운트가 출력되기까지 여유시간
@@ -70,8 +71,12 @@ public class GameStartCounter : MonoBehaviour
 
         for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
         {
-            players[i].GetComponent<PlayerController>().enabled = true; // 플레이어컨트롤러 활성화
+            playerPV = players[i].GetComponent<PhotonView>();
+            if (playerPV.IsMine) // 현재 클라이언트만 자동이동 활성화(그래야 끊기는게 없음)
+                players[i].GetComponent<PlayerController>().enabled = true; // 플레이어컨트롤러 활성화
+
             players[i].GetComponent<SyncPlayerPosition>().enabled = true; // 위치동기화 활성화
+            
         }
     }
 }

@@ -58,11 +58,10 @@ MonoBehaviour:
   Group: 0
   prefixField: -1
   Synchronization: 3
-  OwnershipTransfer: 1
+  OwnershipTransfer: 0
   observableSearch: 0
   ObservedComponents:
-  - {fileID: 282711618129382643}
-  - {fileID: 2650943663448042869}
+  - {fileID: 8682449324806430342}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -117,7 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PV: {fileID: 7585849202067440539}
-  playerCamera: {fileID: 0}
+  playerCamera: {fileID: 6259886408097682291}
 --- !u!114 &8682449324806430342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,7 +297,7 @@ GameObject:
   - component: {fileID: 3834341094444732966}
   - component: {fileID: 2942640972217642237}
   - component: {fileID: 2142682481820461422}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
