@@ -16,6 +16,8 @@ public class GameStartCounter : MonoBehaviour
 
     private GameObject[] players; // 플레이어 객체를 담을 배열
 
+    public GameObject gameRuleManager;
+
     void Awake()
     {
         countText.GetComponent<Text>().text = "Ready..."; // 텍스트 초기화
@@ -76,7 +78,8 @@ public class GameStartCounter : MonoBehaviour
                 players[i].GetComponent<PlayerController>().enabled = true; // 플레이어컨트롤러 활성화
 
             players[i].GetComponent<SyncPlayerPosition>().enabled = true; // 위치동기화 활성화
-            
+
+            gameRuleManager.SetActive(true); // 게임룰매니저 활성화
         }
     }
 }
