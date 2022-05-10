@@ -18,11 +18,15 @@ public class GameStartCounter : MonoBehaviour
 
     public GameObject gameRuleManager;
 
+    bool isRpcCalled; // rpc를 한번호출했으면 실행안되게 해줌
+
     void Awake()
     {
         countText.GetComponent<Text>().text = "Ready..."; // 텍스트 초기화
 
         players = new GameObject[PhotonNetwork.PlayerList.Length];
+
+        isRpcCalled = false;
     }
 
     void Update()
@@ -66,6 +70,11 @@ public class GameStartCounter : MonoBehaviour
     [PunRPC]
     public void OnPlayerControllerRPC()
     {
+        if (isRpcCalled) // 이미 rpc를 호출했으면 실행안되게 해줌
+            return;
+        else
+            isRpcCalled = true;
+
         players = GameObject.FindGameObjectsWithTag("Player");
 
         for(int i=0; i<players.Length; i++)
@@ -73,11 +82,21 @@ public class GameStartCounter : MonoBehaviour
 
         for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
         {
-            playerPV = players[i].GetComponent<PhotonView>();
-            if (playerPV.IsMine) // 현재 클라이언트만 자동이동 활성화(그래야 끊기는게 없음)
+            if (players[i].GetPhotonView().IsMine) // 현재 클라이언트만 자동이동 활성화(그래야 끊기는게 없음)
+            {
                 players[i].GetComponent<PlayerController>().enabled = true; // 플레이어컨트롤러 활성화
+            }
 
             players[i].GetComponent<SyncPlayerPosition>().enabled = true; // 위치동기화 활성화
+
+            if(players[i].GetPhotonView().IsMine == true)
+            {
+                players[i].tag = "MyPlayer";
+            }
+            else
+            {
+                players[i].tag = "OtherPlayer";
+            }
 
             gameRuleManager.SetActive(true); // 게임룰매니저 활성화
         }

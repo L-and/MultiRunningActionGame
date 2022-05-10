@@ -1,39 +1,63 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class GameRuleManager : MonoBehaviour
+public class GameRuleManager : MonoBehaviour, IPunObservable
 {
+
     GameObject[] players; // player들의 distance를 얻기위한 변수
-    float[] movedistanceList;
-    bool coroutineCheck;
+
+    float clientMoveDistance; // 내 캐릭터의 distance
+    float[] otherMovedistanceList; // 다른 플레이어들의 distance들
+
+    public float updateLate; // distance 업데이트 주기
+
+    bool coroutineCheck; // 코루틴에 들어가도되는지 검사하는 변수
 
     private void Start()
     {
-        players = GameObject.FindGameObjectsWithTag("Player");
-        movedistanceList = new float[players.Length];
+        players = GameObject.FindGameObjectsWithTag("Player"); // 플레이어 객체 할당
+
+        otherMovedistanceList = new float[players.Length - 1];
+
         coroutineCheck = true;
     }
 
     private void Update()
     {
-        if (coroutineCheck)
+        tryUpdateMoveDistance();
+    }
+
+    private void tryUpdateMoveDistance() // 플레이어들의 MoveDistance를 업데이트 시도
+    {
+        if(coroutineCheck) // 코루틴을 실행할 수 있으면
         {
             coroutineCheck = false;
-            StartCoroutine(updateMoveDistanceCoroutine()); // 매번 호출하면 퍼포먼스가 떨어질거같아서 일정시간마다 코루틴으로 호출
+
+            StartCoroutine(updateMoveDistanceCoroutine());
         }
-  
     }
 
     IEnumerator updateMoveDistanceCoroutine()
     {
-        for (int i = 0; i < players.Length; i++)
+        print(otherMovedistanceList);
+        yield return new WaitForSeconds(updateLate);
+    }
+
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        //통신을 보내는 
+        if (stream.IsWriting)
         {
-            movedistanceList[i] = players[i].GetComponent<PlayerController>().moveDistance; // 컨트롤러에서 현재 지나온 거리를 가져와서 movedistanceList에 저장
-            print(players[i].name + ":" + movedistanceList[i]);
+            stream.SendNext(clientMoveDistance);
         }
 
-        yield return new WaitForSecondsRealtime(2.0f);
-        coroutineCheck = true;
+        //클론이 통신을 받는 
+        else
+        {
+            otherMovedistanceList[info.photonView.ViewID / 1000 - 1] = (float)stream.ReceiveNext();
+        }
     }
 }

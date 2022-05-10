@@ -124,11 +124,15 @@ public class Launcher : MonoBehaviourPunCallbacks
             lobbyUIObj.SetActive(false); // 로비UI 비활성화
             UICameraObj.SetActive(false); // UI카메라 비활성화
 
-        //    if(PV.IsMine) // 자신의 클라이언트라면
-                player = PhotonNetwork.Instantiate(playerPrefab.name, playerSpawnTransform.position, Quaternion.identity); // 플레이어인스턴스 생성(리지드포함)
-            //else
-            //    player = PhotonNetwork.Instantiate(otherPlayerPrefab.name, playerSpawnTransform.position, Quaternion.identity); // 다른플레이어인스턴스 생성(리지드미포함)
-
+            if(PV.IsMine) // 자신의 클라이언트라면
+            {// 플레이어인스턴스 생성(태그:MyPlayer)
+                player = PhotonNetwork.Instantiate(playerPrefab.name, playerSpawnTransform.position, Quaternion.identity);
+            }
+                
+            else
+            {// 플레이어인스턴스 생성(태그:OtherPlayer)
+                player = PhotonNetwork.Instantiate(playerPrefab.name, playerSpawnTransform.position, Quaternion.identity);
+            }
             player.name = "Player[" + PhotonNetwork.LocalPlayer.NickName + "]"; // 플레이어이름설정
 
             gameStartCounter.SetActive(true); // 게임스타터 활성화

@@ -10,6 +10,8 @@ TagManager:
   - Map
   - hitCollider
   - avoidCollider
+  - MyPlayer
+  - OtherPlayer
   layers:
   - Default
   - TransparentFX
