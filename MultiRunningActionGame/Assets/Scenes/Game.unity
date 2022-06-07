@@ -36163,7 +36163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PV: {fileID: 619040102}
-  maxPlayerCnt: 4
+  maxPlayerCnt: 50
   UICameraObj: {fileID: 606157963}
   panelObj: {fileID: 701671900}
   mainUIObj: {fileID: 863380378}
@@ -37151,7 +37151,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1642015113
 RectTransform:
   m_ObjectHideFlags: 0

@@ -109,7 +109,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public void GameStart()
     {
-       // 임시 주석처리 if(PhotonNetwork.PlayerList.Length > 1) // 플레이어의 수가 1명보다 많으면
+       if(PhotonNetwork.PlayerList.Length > 1) // 플레이어의 수가 1명보다 많으면
         PV.RPC("GameStartRPC", RpcTarget.All);
     }
 
