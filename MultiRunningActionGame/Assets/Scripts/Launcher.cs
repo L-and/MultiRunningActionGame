@@ -56,6 +56,7 @@ public class Launcher : MonoBehaviourPunCallbacks
         networkStats.text = PhotonNetwork.NetworkClientState.ToString(); // 네트워크상태 UI로 표시
     }
 
+
     public void Connect() => PhotonNetwork.ConnectUsingSettings();
 
     public void CreateorJoinRoom() // 방을 생성하거나 방이 있으면 참가
@@ -87,7 +88,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public void RoomButtonActivator()
     {
-        print("클라이언트 상태" + PhotonNetwork.IsMasterClient);
+        print("마스터 클라이언트 상태" + PhotonNetwork.IsMasterClient);
         if (PhotonNetwork.IsMasterClient)
             startButtonObj.SetActive(true); // 마스터클라이언트면 시작버튼을 활성화
         else
@@ -108,6 +109,7 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public void GameStart()
     {
+       // 임시 주석처리 if(PhotonNetwork.PlayerList.Length > 1) // 플레이어의 수가 1명보다 많으면
         PV.RPC("GameStartRPC", RpcTarget.All);
     }
 

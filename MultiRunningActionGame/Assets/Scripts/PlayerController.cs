@@ -31,14 +31,21 @@ public class PlayerController : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    private void Update()
+    {
+        if (PV.IsMine) // 현재 클라이언트 플레이어라면 실행
+        {
+            GetInput();
+            Jump();
+        }
+    }
+
+    private void FixedUpdate()
     {
         if (PV.IsMine) // 현재 클라이언트 플레이어라면 실행
         {
 
-            Jump();
             UpdateDistance();
-            GetInput();
             Move();
             //if (horizontalInput != 0.0f)
             //transform.position += Vector3.right * horizontalInput * speed * Time.deltaTime;
@@ -70,6 +77,6 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
-            transform.position += Vector3.right * speed * Time.deltaTime;
+            rigid.position += Vector2.right * speed * Time.fixedDeltaTime;
     }
 }

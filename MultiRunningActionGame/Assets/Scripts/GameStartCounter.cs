@@ -89,14 +89,6 @@ public class GameStartCounter : MonoBehaviour
 
             players[i].GetComponent<SyncPlayerPosition>().enabled = true; // 위치동기화 활성화
 
-            if(players[i].GetPhotonView().IsMine == true)
-            {
-                players[i].tag = "MyPlayer";
-            }
-            else
-            {
-                players[i].tag = "OtherPlayer";
-            }
 
             gameRuleManager.SetActive(true); // 게임룰매니저 활성화
         }
