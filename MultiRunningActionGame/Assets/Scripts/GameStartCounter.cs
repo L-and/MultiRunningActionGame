@@ -89,8 +89,8 @@ public class GameStartCounter : MonoBehaviour
 
             players[i].GetComponent<SyncPlayerPosition>().enabled = true; // 위치동기화 활성화
 
-
-            gameRuleManager.SetActive(true); // 게임룰매니저 활성화
+            if(gameRuleManager != null)
+                gameRuleManager.SetActive(true); // 게임룰매니저 활성화
         }
     }
 }

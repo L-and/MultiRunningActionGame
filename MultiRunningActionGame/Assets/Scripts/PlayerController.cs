@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
 
     void GetInput() // 사용자입력받기
     {
-        isJumpInput = Input.GetButtonDown("Jump");
+        isJumpInput = (Input.GetTouch(0).phase ==  TouchPhase.Began);
         horizontalInput = Input.GetAxisRaw("Horizontal");
     }
 
